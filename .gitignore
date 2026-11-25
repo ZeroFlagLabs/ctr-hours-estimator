@@ -1,0 +1,10 @@
+/venv/
+/.venv/
+/_ui_preview/
+/docs/private/
+/references/
+/releases/
+/build/
+/dist/
+__pycache__/
+*.pyc
