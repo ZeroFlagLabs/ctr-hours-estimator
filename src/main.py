@@ -226,7 +226,7 @@ class Window(QMainWindow):
         side.addWidget(g)
         g,l=group("Results")
         g.setMinimumWidth(194)
-        for title,attr in (("Total hours","total"),("FTEs required","fte")):
+        for title,attr in (("Total hours","total"),("FTEs required*","fte")):
             l.addWidget(label(title))
             result=label("-","result")
             result.setMinimumWidth(150)
@@ -239,7 +239,7 @@ class Window(QMainWindow):
                 rule.setStyleSheet("background:#d8e4f0;")
                 l.addWidget(rule)
         l.addStretch()
-        note=label("37.5 hrs/week at 80% efficiency.","muted")
+        note=label("* 37.5 hrs/week at 80% efficiency.","muted")
         note.setWordWrap(False)
         note.setAlignment(Qt.AlignmentFlag.AlignCenter)
         l.addWidget(note)
@@ -249,7 +249,7 @@ class Window(QMainWindow):
         row = QHBoxLayout()
         row.addStretch()
         self.reset = QPushButton("Reset")
-        self.reset.setMinimumWidth(92)
+        self.reset.setFixedSize(106,30)
         self.reset.setFocusPolicy(Qt.FocusPolicy.NoFocus)
         self.reset.setToolTip("Reset all inputs (Ctrl+R)")
         self.reset.clicked.connect(self.reset_fields)
@@ -340,7 +340,7 @@ class Window(QMainWindow):
         """)
         self.add_defaults_tab(d)
         d.setWindowModality(Qt.WindowModality.ApplicationModal)
-        d.buttons.button(QDialogButtonBox.StandardButton.Close).setFixedSize(112,30)
+        d.buttons.button(QDialogButtonBox.StandardButton.Close).setFixedSize(106,30)
         d.buttons.rejected.connect(d.reject)
         checker=self.update_checker
         d.check_on_launch.setChecked(checker.enabled())
@@ -385,7 +385,7 @@ class Window(QMainWindow):
             lab=label(name)
             lab.setStyleSheet("color:#243d58;")
             spin=editor(suffix="hrs")
-            spin.setFixedWidth(112)
+            spin.setFixedWidth(106)
             spin.setStyleSheet("\n".join(line for line in STYLE.splitlines() if line.startswith("QAbstractSpinBox")))
             spin.setAccessibleName(name+" default hours")
             spin.setText(self.saved_defaults[i])
@@ -402,7 +402,7 @@ class Window(QMainWindow):
         d.restore_defaults_button=QPushButton("Restore defaults")
         d.save_defaults_button=QPushButton("Save defaults")
         for btn in (d.restore_defaults_button,d.save_defaults_button):
-            btn.setFixedSize(112,30)
+            btn.setFixedSize(106,30)
         row.addWidget(d.restore_defaults_button)
         row.addStretch()
         row.addWidget(d.save_defaults_button)

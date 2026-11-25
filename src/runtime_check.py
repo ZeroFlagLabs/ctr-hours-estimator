@@ -11,7 +11,7 @@ def run(app,w):
     output=Path(sys.argv[sys.argv.index("--self-test-output")+1]) if "--self-test-output" in sys.argv else None
     try:
         app.processEvents()
-        assert (w.width(),w.height())==(557,335)
+        assert (w.width(),w.height())==(565,335)
         assert not w.windowIcon().isNull()
         assert w.total.text()=="0 hrs" and w.fte.text()=="-"
         assert tuple(r.text() for r in w.rates)==FACTORY_DEFAULTS

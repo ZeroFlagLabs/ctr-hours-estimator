@@ -38,7 +38,7 @@ try:
     assert [d.settings_tabs.tabText(i) for i in range(4)]==["Defaults","Assumptions","Updates","About"]
     assert len(d.default_fields)==5 and draft(d)==FACTORY_VALUES and not d.save_defaults_button.isEnabled()
     close=d.buttons.button(QDialogButtonBox.StandardButton.Close)
-    assert close.size()==d.restore_defaults_button.size()==d.save_defaults_button.size()==QSize(112,30)
+    assert close.size()==d.restore_defaults_button.size()==d.save_defaults_button.size()==QSize(106,30)
     assert all(f.size()==d.save_defaults_button.size() for f in d.default_fields)
     assert d.grab().save(str(EVIDENCE/"defaults_factory.png"))
     proposed=("6.25","0","9999.99","3.5","37.5")
