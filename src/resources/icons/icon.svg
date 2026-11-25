@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2=".7" y2="1"><stop stop-color="#00d5f1"/><stop offset=".37" stop-color="#078bd8"/><stop offset="1" stop-color="#0018a2"/></linearGradient>
+ <linearGradient id="rim" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#78f4ff"/><stop offset=".5" stop-color="#1179cd"/><stop offset="1" stop-color="#1243ec"/></linearGradient>
+ <linearGradient id="metal" x1="0" y1="0" x2="1" y2=".15"><stop stop-color="#67737d"/><stop offset=".16" stop-color="#e0e6ea"/><stop offset=".35" stop-color="#f9fbfc"/><stop offset=".62" stop-color="#a2adb6"/><stop offset=".83" stop-color="#e7edf2"/><stop offset="1" stop-color="#89949f"/></linearGradient>
+ <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fff"/><stop offset="1" stop-color="#c9d8e5"/></linearGradient>
+ <linearGradient id="clock" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f9ffff"/><stop offset=".48" stop-color="#c3d0da"/><stop offset="1" stop-color="#f0f5fa"/></linearGradient>
+</defs>
+<rect x="2" y="2" width="252" height="252" rx="55" fill="url(#bg)" stroke="url(#rim)" stroke-width="4"/>
+<rect x="8" y="8" width="240" height="240" rx="49" fill="none" stroke="#c3f9ff" stroke-opacity=".2" stroke-width="2"/>
+<rect x="44" y="43" width="133" height="175" rx="13" fill="#00194d" opacity=".42" transform="translate(4 7)"/>
+<rect x="43" y="40" width="133" height="175" rx="13" fill="url(#metal)" stroke="#edf8ff" stroke-width="2"/>
+<rect x="54" y="52" width="111" height="151" rx="6" fill="url(#paper)" stroke="#8d9ca9" stroke-width="2"/>
+<rect x="78" y="28" width="65" height="35" rx="8" fill="url(#metal)" stroke="#e7f1f7" stroke-width="2"/>
+<rect x="92" y="35" width="37" height="9" rx="4" fill="#465766"/>
+<g fill="none" stroke="#236a9d" stroke-width="7" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M67 85l7 7 14-17"/><path d="M67 115l7 7 14-17"/><path d="M67 145l7 7 14-17"/>
+</g>
+<g stroke="#718da6" stroke-width="5" stroke-linecap="round"><path d="M100 85h49"/><path d="M100 115h49"/><path d="M100 145h30"/><path d="M67 177h46"/></g>
+<circle cx="173" cy="166" r="61" fill="#001b53" opacity=".42" transform="translate(3 6)"/>
+<circle cx="173" cy="166" r="61" fill="url(#metal)" stroke="#effaff" stroke-width="2"/>
+<circle cx="173" cy="166" r="51" fill="url(#clock)" stroke="#637987" stroke-width="2"/>
+<g stroke="#254f75" stroke-width="4" stroke-linecap="round"><path d="M173 123v8 M173 201v8 M130 166h8 M208 166h8"/></g>
+<g stroke="#134c80" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" fill="none"><path d="M173 136v30l20 13"/></g>
+<circle cx="173" cy="166" r="5" fill="#134c80"/>
+</svg>

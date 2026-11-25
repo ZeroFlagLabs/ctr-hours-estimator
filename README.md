@@ -1,159 +1,29 @@
 # CTR Hours Estimator
 
-A Python-based engineering utility for estimating total project hours
-and determining required full-time equivalent (FTE) personnel over a
-defined duration.
+ZeroFlagLabs | Windows desktop application | v2.0.0
 
-The tool supports both breakdown-based estimation and manual total hours
-input, with automatic real-time calculation.
+Estimate project engineering hours and full-time equivalent (FTE) headcount using task quantities, hours per task and other hours. Version 2.0.0 modernises the original v1.0–v1.1 application without changing its calculation equations.
 
-------------------------------------------------------------------------
+## Download
 
-## 📐 Methodology
+Download the [latest Windows portable ZIP](https://github.com/ZeroFlagLabs/ctr-hours-estimator/releases/latest), extract the single unsigned EXE and run it. No installer or separate Python runtime is required. Verify the ZIP SHA-256 in the release notes. Preferences are saved per Windows user, not beside the executable.
 
-### Total Hours
+## Calculation basis
 
-Total project hours are calculated as:
+Total hours = sum of (task quantity × hours per task) + other hours.
 
-Total Hours =\
-(New P/Ns Qty × Hrs/Task) +\
-(Revised P/Ns Qty × Hrs/Task) +\
-(New Dwgs Qty × Hrs/Task) +\
-(Revised Dwgs Qty × Hrs/Task) +\
-Additional Hours
+FTE headcount = total hours / (duration in weeks × 37.5 hours/week × 0.80).
 
-------------------------------------------------------------------------
+The assumed UK working week of 37.5 hours and 80% efficiency give 30 effective hours per FTE per week. A positive duration is required to calculate FTEs. Estimates support resource planning, not detailed scheduling.
 
-### Employees Required
+## Using the calculator
 
-Employees are calculated as:
+- Enter integer quantities (0–999) for new/revised P/Ns and drawings; hours per task and other hours accept 0–9999.99, up to two decimal places.
+- Use Other hours for supplementary hours or a known total when quantities are blank or zero. Results update automatically.
+- Settings → Defaults saves your preferred task rates and other hours and applies them immediately, retaining quantities and duration. Factory values are 4, 2, 8, 4 and 0 hours. Restore defaults stages these values; Save defaults confirms them. Closing without saving discards edits.
+- Reset clears quantities, restores all five saved hours defaults and sets duration to zero.
+- Settings → Updates checks stable GitHub releases; no automatic downloads or installation.
 
-Employees = Total Hours / (Weeks × 37.5 × 0.8)
+## Development and licences
 
-Where:
-
--   37.5 = standard UK working hours per week\
--   0.8 = assumed efficiency factor
-
-If weeks are not provided, employee calculation is not performed.
-
-------------------------------------------------------------------------
-
-## ⚙️ Input Behaviour
-
-### Default Values
-
--   New P/Ns → 4 hrs/task\
--   Revised P/Ns → 2 hrs/task\
--   New Dwgs → 8 hrs/task\
--   Revised Dwgs → 4 hrs/task\
--   Additional Hours → 8 hrs\
--   Quantities → 0
-
-### Input Rules
-
--   Quantities → integers only\
--   Hours and duration → decimal values allowed\
--   Weeks → optional
-
-------------------------------------------------------------------------
-
-## 🔄 Modes of Operation
-
-### Breakdown Mode (default)
-
--   Uses task quantities and hours per task\
--   Automatically calculates total hours
-
-### Manual Mode
-
--   Enabled via checkbox\
--   User inputs total hours directly\
--   Breakdown inputs are disabled
-
-------------------------------------------------------------------------
-
-## 🖥️ Usage
-
-### GUI Application
-
-python src/main.py
-
-Provides:
-
--   Real-time calculation\
--   Dual input modes\
--   Automatic validation of numeric inputs\
--   Clean reset to default values
-
-------------------------------------------------------------------------
-
-## 🛠️ Build Executable
-
-Use the standard packaging script:
-
-tools/package_app.sh
-
-You will be prompted for:
-
--   App Name (e.g. CTR Hours Estimator)\
--   Version (e.g. 1.0)
-
-Output will be:
-
-dist/CTR Hours Estimator v1.0.exe
-
-Notes:
-
--   Run from project root directory\
--   Requires virtual environment (use dev_shell.sh)\
--   Output executable is fully standalone
-
-------------------------------------------------------------------------
-
-## 📁 Project Structure
-
--   src/main.py → Application entry point + UI logic\
--   src/calculator.py → Core calculation logic\
--   src/ui/main_window.ui → Qt Designer UI file\
--   src/resources/icons/ → Icon files\
--   src/resources/images/ → Image assets\
--   src/resources/data/ → Data files (if applicable)\
--   tools/dev_shell.sh → Development environment\
--   tools/package_app.sh → Build script
-
-------------------------------------------------------------------------
-
-## 🚀 Status
-
-✔ Breakdown-based estimation\
-✔ Manual total hours mode\
-✔ Automatic calculation\
-✔ Input validation\
-✔ Reset functionality\
-✔ GUI interface\
-✔ Standalone executable build
-
-------------------------------------------------------------------------
-
-## 📌 Notes
-
-This tool is intended for:
-
--   quick engineering estimates\
--   internal planning and resource assessment\
--   replacing simple spreadsheet-based calculations
-
-It is not intended to replace detailed project planning tools.
-
-------------------------------------------------------------------------
-
-## 🔄 Version History
-
-### v1.0
-
--   Initial release
-
-### v1.1
-
--   Remove created by name from main_window.ui
+See [development](docs/DEVELOPMENT.md), [third-party notices](docs/THIRD_PARTY_NOTICES.md) and [LGPL rebuild instructions](docs/ONEFILE_REBUILD_AND_LGPL.md). Original application code is MIT licensed; third-party components retain their licences.
