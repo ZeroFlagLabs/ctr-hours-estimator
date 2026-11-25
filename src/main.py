@@ -1,4 +1,5 @@
 """CTR Hours Estimator desktop application; legacy calculations preserved."""
+from status_bar import CenteredStatusBar
 from pathlib import Path
 import sys, ctypes, math
 from PySide6.QtCore import QTimer, QUrl, Qt, QRegularExpression, QSize, QSignalBlocker, QFile, QIODevice, Signal
@@ -255,10 +256,7 @@ class Window(QMainWindow):
         self.reset.clicked.connect(self.reset_fields)
         row.addWidget(self.reset)
         root.addLayout(row)
-        self.setStatusBar(QStatusBar())
-        self.statusBar().setSizeGripEnabled(False)
-        self.statusBar().setFixedHeight(21)
-        self.statusBar().setStyleSheet("QStatusBar {background:#f0f0f0;color:#243d58;font: 9pt 'Segoe UI';}")
+        self.setStatusBar(CenteredStatusBar(self))
         self.fields = [*[w for pair in zip(self.quantities,self.rates) for w in pair],self.additional,self.weeks]
         for w in self.fields: w.textChanged.connect(self.calculate)
         for a,b in zip(self.fields,self.fields[1:]): QWidget.setTabOrder(a,b)

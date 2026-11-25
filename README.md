@@ -1,8 +1,12 @@
 # CTR Hours Estimator
 
-ZeroFlagLabs | Windows desktop application | v2.0.1
+ZeroFlagLabs | Windows desktop application | v2.0.2
 
 Estimate project engineering hours and full-time equivalent (FTE) headcount using task quantities, hours per task and other hours. Version 2.0.0 modernises the original v1.0–v1.1 application without changing its calculation equations.
+
+## v2.0.2 status bar centring
+
+Vertically centred status text with a stable baseline; standard font, colours, height and message behaviour retained. Calculation engine unchanged.
 
 ## v2.0.1
 
