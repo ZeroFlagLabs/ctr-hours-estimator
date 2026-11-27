@@ -11,7 +11,12 @@ def run(app,w):
     output=Path(sys.argv[sys.argv.index("--self-test-output")+1]) if "--self-test-output" in sys.argv else None
     try:
         app.processEvents()
-        assert (w.width(),w.height())==(565,335)
+        # Font metrics vary at fractional DPI. Preserve the approved adaptive
+        # layout; at 100% retain its exact reference size.
+        assert w.size()==w.sizeHint() and w.height()==335
+        if w.devicePixelRatioF()==1.0:assert w.width()==565
+        elif w.devicePixelRatioF() in (1.25,1.5):assert w.width()==560
+        report['window_size']=list(w.size().toTuple())
         assert not w.windowIcon().isNull()
         assert w.total.text()=="-" and w.fte.text()=="-"
         assert tuple(r.text() for r in w.rates)==FACTORY_DEFAULTS

@@ -9,6 +9,7 @@ from PySide6.QtWidgets import (QApplication, QMainWindow, QWidget, QLabel, QLine
     QDialog, QTabWidget, QStatusBar, QButtonGroup, QAbstractSpinBox, QDialogButtonBox)
 from PySide6.QtUiTools import QUiLoader
 from dialog_position import exec_centered
+from dialog_theme import apply_dialog_theme, ensure_light_scheme, set_settings_identity
 from preferences import FACTORY_DEFAULTS, FACTORY_VALUES, TASK_NAMES, DEFAULT_NAMES, app_settings, load_rates, save_rates, valid_rates
 from app_info import APP_TITLE, APP_VERSION, GITHUB_URL
 from update_checker import UpdateChecker
@@ -140,6 +141,7 @@ def hours(n):
 
 class Window(QMainWindow):
     def __init__(self, preferences=None):
+        ensure_light_scheme()
         super().__init__()
         self.preferences = app_settings() if preferences is None else preferences
         self.saved_defaults = load_rates(self.preferences)
@@ -345,6 +347,7 @@ class Window(QMainWindow):
         d.check_on_launch.setChecked(checker.enabled())
         d.check_on_launch.toggled.connect(checker.set_enabled)
         d.check_now_button.clicked.connect(checker.check)
+        set_settings_identity(d, APP_TITLE, APP_VERSION, 'Engineering project hours and full-time equivalent (FTE) estimation utility.')
         d.github_link.setText(f'<a href="{GITHUB_URL}">Project on GitHub</a>')
         d.github_link.setOpenExternalLinks(True)
         def refresh():
@@ -360,6 +363,7 @@ class Window(QMainWindow):
         checker.state_changed.connect(refresh)
         d.finished.connect(disconnect)
         refresh()
+        apply_dialog_theme(d)
         return d
 
     def add_defaults_tab(self,d):
@@ -372,7 +376,7 @@ class Window(QMainWindow):
         heading.setStyleSheet("font-weight:600;color:#164f8a;")
         l.addWidget(heading)
         intro=label("Set your preferred hours per task and other hours for current and future estimates.")
-        intro.setStyleSheet("color:#243d58;")
+        intro.setStyleSheet("color:#242424;")
         intro.setWordWrap(True)
         l.addWidget(intro)
         grid=QGridLayout()
@@ -382,7 +386,7 @@ class Window(QMainWindow):
         d.default_fields=[]
         for i,name in enumerate(DEFAULT_NAMES):
             lab=label(name)
-            lab.setStyleSheet("color:#243d58;")
+            lab.setStyleSheet("color:#174675;")
             spin=editor(suffix="hrs")
             spin.setFixedWidth(106)
             spin.setStyleSheet("\n".join(line for line in STYLE.splitlines() if line.startswith("QAbstractSpinBox")))
@@ -458,13 +462,19 @@ def make_app():
 if __name__=="__main__":
     ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID("ZeroFlagLabs.CTRHoursEstimator")
     app=make_app()
-    if "--self-test" in sys.argv:
+    if "--dialogue-test" in sys.argv:
+        from dialogue_acceptance import prepare_scheme
+        prepare_scheme(app)
+    if "--self-test" in sys.argv or "--dialogue-test" in sys.argv:
         from tempfile import TemporaryDirectory
         from PySide6.QtCore import QSettings
         temp=TemporaryDirectory()
         w=Window(QSettings(str(Path(temp.name)/"self-test.ini"), QSettings.Format.IniFormat))
     else:w=Window()
     w.show()
+    if "--dialogue-test" in sys.argv:
+        from dialogue_acceptance import run_for_window
+        sys.exit(run_for_window(app,w))
     if "--self-test" in sys.argv:
         from runtime_check import run
         sys.exit(run(app,w))
