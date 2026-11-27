@@ -54,7 +54,7 @@ assert w.grab().save(str(EVIDENCE/"maximum_all.png"))
 w.reset_fields()
 assert w.additional.text()==w.weeks.text()=="0"
 assert all(not q.text() for q in w.quantities)
-assert w.total.text()=="0 hrs" and w.fte.text()=="-"
+assert w.total.text()=="-" and w.fte.text()=="-"
 assert w.grab().save(str(EVIDENCE/"startup_final.png"))
 print("PASS: stable focus geometry, text inset, arrow positions, all maximum inputs fit, labels fit, zero defaults and reset")
 w.close()

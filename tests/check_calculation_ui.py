@@ -12,7 +12,7 @@ EVIDENCE.mkdir(parents=True,exist_ok=True)
 from PySide6.QtTest import QTest
 from PySide6.QtCore import QPoint
 app=make_app(); w=Window(_test_settings); w.show(); w.activateWindow(); app.processEvents()
-assert w.total.text()=="0 hrs" and w.fte.text()=="-"
+assert w.total.text()=="-" and w.fte.text()=="-"
 assert w.additional.text()==w.weeks.text()=="0"
 assert [r.text() for r in w.rates]==list(DEFAULTS)
 assert w.grab().save(str(EVIDENCE/"startup.png"))
@@ -27,7 +27,9 @@ w.reset_fields();w.additional.setText("300");w.weeks.setText("10")
 assert w.total.text()=="300 hrs" and w.fte.text()=="1.00"
 w.weeks.clear();assert w.total.text()=="300 hrs" and w.fte.text()=="-"
 w.weeks.setText("0");assert w.fte.text()=="-"
-w.weeks.setText("10");w.additional.setText("0");assert w.total.text()=="0 hrs" and w.fte.text()=="0.00"
+w.weeks.setText("10");w.additional.setText("0");assert w.total.text()==w.fte.text()=="-"
+w.quantities[0].setText("0");assert w.total.text()=="0 hrs" and w.fte.text()=="0.00"
+w.quantities[0].clear();assert w.total.text()==w.fte.text()=="-"
 w.reset_fields();w.quantities[0].setText("0");assert w.total.text()=="0 hrs"
 w.reset_fields()
 q=w.quantities[0];q.setFocus();QTest.keyClicks(q.lineEdit(),"1234");assert q.text()=="123"

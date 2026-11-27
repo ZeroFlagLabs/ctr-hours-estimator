@@ -273,7 +273,7 @@ class Window(QMainWindow):
         for s in self.subtotals: s.setText("-")
         try:
             args = []
-            any_input = bool(self.additional.text().strip())
+            any_input = False
             incomplete = False
             for q,r,s in zip(self.quantities,self.rates,self.subtotals):
                 qty = number(q)
@@ -286,6 +286,7 @@ class Window(QMainWindow):
                         s.setText(hours(qty*(rate or 0)))
                 args.extend((qty or 0,rate or 0))
             additional = number(self.additional)
+            any_input |= additional is not None and additional > 0
             if incomplete:
                 self.statusBar().showMessage("Enter hours per task for each non-zero quantity.")
                 return

@@ -13,7 +13,7 @@ def run(app,w):
         app.processEvents()
         assert (w.width(),w.height())==(565,335)
         assert not w.windowIcon().isNull()
-        assert w.total.text()=="0 hrs" and w.fte.text()=="-"
+        assert w.total.text()=="-" and w.fte.text()=="-"
         assert tuple(r.text() for r in w.rates)==FACTORY_DEFAULTS
         for q,v in zip(w.quantities,("10","5","8","4")):q.setText(v)
         w.additional.setText("20");w.weeks.setText("5")
@@ -33,9 +33,12 @@ def run(app,w):
         d.restore_defaults_button.click();d.save_defaults_button.click()
         assert w.total.text()=="130 hrs" and load_rates(w.preferences)==FACTORY_VALUES
         d.reject()
-        w.reset_fields();assert w.total.text()=="0 hrs" and w.fte.text()=="-"
+        w.reset_fields();assert w.total.text()=="-" and w.fte.text()=="-"
         w.additional.setText("300");w.weeks.setText("10")
         assert w.total.text()=="300 hrs" and w.fte.text()=="1.00"
+        w.additional.setText("0");assert w.total.text()==w.fte.text()=="-"
+        w.quantities[0].setText("0");assert w.total.text()=="0 hrs" and w.fte.text()=="0.00"
+        w.quantities[0].clear();assert w.total.text()==w.fte.text()=="-"
         report["functional"]="passed"
         if output:w.grab().save(str(output.with_suffix(".png")))
         if "--live-update-test" in sys.argv:
